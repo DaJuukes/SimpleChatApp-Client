@@ -1,4 +1,5 @@
 const initClient = require('./src/initClient.js')
+const handleInput = require('./src/handleInput.js')
 const readline = require('readline')
 
 const socket = initClient()
@@ -9,7 +10,7 @@ socket.on('connect_error', () => {
 })
 
 socket.on('connect', () => {
-  console.log('Connected')
+  console.log('Connected successfully! Joined default roon.')
 })
 
 socket.on('disconnect', () => {
@@ -31,6 +32,4 @@ const rl = readline.createInterface({
   terminal: false
 })
 
-rl.on('line', (line) => {
-  socket.emit('message', {message: line})
-})
+rl.on('line', (line) => handleInput(socket, line))
